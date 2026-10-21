@@ -21,7 +21,7 @@ const stalls = STALLS.map((st, i) => ({ name: st.th, img: STALL_PHOTO[i], rating
 
 type Props = { go?: (a: Action) => void; touched?: boolean };
 
-/** No props: the static showcase picture. With go: the Playable phone's home; only stall and แนะนำวันนี้ cards respond. */
+/** No props: the static showcase picture. With go: the Playable phone's home; stall cards, แนะนำวันนี้ cards and the invite tile respond. */
 export const Screen1Home = ({ go, touched }: Props) => (
   <div className="flex-1 min-h-0 flex flex-col bg-white">
     <div className="flex-1 min-h-0 overflow-y-auto no-scrollbar pb-3">
@@ -119,7 +119,7 @@ export const Screen1Home = ({ go, touched }: Props) => (
             </li>
           ))}
           <li>
-            <a href={go ? undefined : '#join-stall'} className="my-3 w-full p-3 flex items-center gap-3 rounded-xl border-2 border-dashed border-brand-text/50 bg-orange-50 text-left">
+            <a href="#join-stall" className="my-3 w-full p-3 flex items-center gap-3 rounded-xl border-2 border-dashed border-brand-text/50 bg-orange-50 text-left">
               <span className="w-16 h-16 rounded-xl shrink-0 bg-white flex items-center justify-center text-brand-text">
                 <Store className="w-7 h-7" />
               </span>
