@@ -21,7 +21,6 @@ export interface Translations {
   };
   showcase3D: {
     title: string;
-    description: string;
     screenNames: {
       home: string;
       store: string;
@@ -91,7 +90,7 @@ export const content: Record<Language, Translations> = {
       langSwitch: 'TH',
     },
     hero: {
-      headline: "Leave the hot hall. Your D1 food, packed and ready. Eat where it's cool.",
+      headline: 'D1 food, super fast.\nOrder ahead.\nGrab it when you arrive.',
       subline: 'Pre-order from Mae Fah Luang University D1 canteen stalls before you walk over. Skip the noon crowd, pick up on time.',
       cta: 'Be first at D1',
       badges: {
@@ -102,7 +101,6 @@ export const content: Record<Language, Translations> = {
     },
     showcase3D: {
       title: 'Designed for the noon rush at D1',
-      description: 'Five focused screens that take you from stall selection to counter pickup with zero queueing in the heat.',
       screenNames: {
         home: 'Home and recommendations',
         store: 'D1 stall menu and wait time',
@@ -113,7 +111,7 @@ export const content: Record<Language, Translations> = {
     },
     howItWorks: {
       title: 'How it works in 3 steps',
-      subtitle: 'Built around the student schedule between classes at Mae Fah Luang University.',
+      subtitle: 'Built for MFU students and staff on the go.',
       step1Number: 'Step 1',
       step1Title: 'Order',
       step1Desc: 'Pick your favourite D1 stall and choose your dish with custom options before leaving your lecture hall or dorm.',
@@ -154,7 +152,7 @@ export const content: Record<Language, Translations> = {
       inputPlaceholder: 'Email, LINE ID or phone',
       submitButton: 'Join the waitlist',
       submitting: 'Saving your spot...',
-      privacyNotice: 'We keep your contact only to tell you when REWJAD opens; ask us and we delete it.',
+      privacyNotice: 'We keep your contact only to tell you when REWJAD opens.',
       successMessage: 'You are on the priority list for D1 canteen. We will notify you when REWJAD opens.',
       submitAnother: 'Register another contact',
       label: 'Your contact',
@@ -180,7 +178,7 @@ export const content: Record<Language, Translations> = {
       langSwitch: 'EN',
     },
     hero: {
-      headline: 'ออกจากโรงอาหารร้อนๆ ข้าว D1 พร้อมรับในกล่อง ไปนั่งกินที่เย็นสบาย',
+      headline: 'ข้าว D1 เร็วจัด\nสั่งก่อน\nถึงแล้วรับเลย',
       subline: 'สั่งล่วงหน้าจากร้านจริงในโรงอาหาร D1 มหาวิทยาลัยแม่ฟ้าหลวง เดินมารับที่เคาน์เตอร์แล้วไปทานในห้องแอร์',
       cta: 'เป็นคนแรกที่ได้ใช้ที่ D1',
       badges: {
@@ -191,7 +189,6 @@ export const content: Record<Language, Translations> = {
     },
     showcase3D: {
       title: 'ออกแบบเพื่อชั่วโมงเร่งด่วนที่โรงอาหาร D1',
-      description: '5 หน้าจอที่ทำให้การสั่งอาหารจนถึงการรับกล่องข้าวที่เคาน์เตอร์สะดวกและไม่ต้องยืนเบียดในแถวร้อนๆ',
       screenNames: {
         home: 'หน้าแรกและเมนูแนะนำ',
         store: 'หน้าร้าน เมนู และเวลารอ',
@@ -202,7 +199,7 @@ export const content: Record<Language, Translations> = {
     },
     howItWorks: {
       title: '3 ขั้นตอนง่ายๆ ได้ข้าวทันที',
-      subtitle: 'ออกแบบเพื่อชีวิตนักศึกษาและบุคลากรมหาวิทยาลัยแม่ฟ้าหลวงที่ต้องเปลี่ยนคาบเรียน',
+      subtitle: 'ออกแบบเพื่อชีวิตนักศึกษาและบุคลากรมหาวิทยาลัยแม่ฟ้าหลวงที่เร่งรีบ',
       step1Number: 'ขั้นตอน 1',
       step1Title: 'สั่งอาหาร',
       step1Desc: 'เลือกร้านโปรดใน D1 และเลือกเมนูที่คุณอยากกินพร้อมระบุรายละเอียดพิเศษก่อนเดินออกจากห้องเรียนหรือหอพัก',
@@ -243,7 +240,7 @@ export const content: Record<Language, Translations> = {
       inputPlaceholder: 'อีเมล, LINE ID หรือเบอร์โทร',
       submitButton: 'ลงชื่อรับสิทธิ์',
       submitting: 'กำลังบันทึกข้อมูล...',
-      privacyNotice: 'เราเก็บช่องทางติดต่อไว้แค่เพื่อบอกคุณตอน REWJAD เปิด ขอให้ลบเมื่อไหร่ก็ได้',
+      privacyNotice: 'เราเก็บช่องทางติดต่อไว้แค่เพื่อบอกคุณตอน REWJAD เปิด',
       successMessage: 'บันทึกชื่อเรียบร้อยแล้ว เราจะติดต่อคุณทันทีเมื่อ REWJAD เปิดให้บริการที่โรงอาหาร D1',
       submitAnother: 'ลงชื่อติดต่อเพิ่ม',
       label: 'ช่องทางติดต่อของคุณ',

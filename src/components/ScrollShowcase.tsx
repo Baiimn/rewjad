@@ -45,9 +45,7 @@ export const ScrollShowcase = ({ t }: { t: Translations }) => {
   return (
     <section ref={ref} className="py-20 md:py-28 overflow-hidden" aria-label={t.showcase3D.title}>
       <Reveal className="max-w-7xl mx-auto px-5 sm:px-6 flex flex-col gap-4">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-display text-ink leading-snug">{t.showcase3D.title}</h2>
-        <p className="text-lg text-ink leading-relaxed max-w-3xl">{t.showcase3D.description}</p>
-      </Reveal>
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-display text-ink leading-snug">{t.showcase3D.title}</h2>      </Reveal>
 
       {/* Phone: a swipeable row, each phone tilting with the scroll. */}
       <div className="md:hidden mt-10 flex gap-6 overflow-x-auto snap-x snap-mandatory no-scrollbar px-5 pb-6 [perspective:900px]">

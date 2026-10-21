@@ -61,7 +61,7 @@ export default function App() {
           <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
             <div className="flex-1 flex flex-col gap-8 max-w-2xl animate-fade">
               <div className="flex flex-col gap-5">
-                <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold font-display leading-[1.25]">{t.hero.headline}</h1>
+                <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold font-display leading-[1.25] whitespace-pre-line">{t.hero.headline}</h1>
                 <p className="text-lg sm:text-xl leading-relaxed">{t.hero.subline}</p>
               </div>
               <a href="#demo" className="w-full sm:w-auto sm:self-start px-8 h-14 bg-brand-text active:bg-[#9A3412] text-white text-lg font-bold rounded-xl flex items-center justify-center gap-3 shadow-lg shadow-orange-900/20 active:scale-95 transition-transform">
