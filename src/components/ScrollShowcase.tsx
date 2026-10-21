@@ -66,7 +66,7 @@ export const ScrollShowcase = ({ t }: { t: Translations }) => {
           <div key={i} className="flex flex-col items-center gap-5 will-change-transform transition-transform duration-200 ease-out"
             style={{ transform: x.tilt, zIndex: 30 - Math.abs(2 - i) * 10 }}>
             <PhoneFrame width={i === 2 ? 250 : 220}>{x.el}</PhoneFrame>
-            <span className="text-base text-ink text-center max-w-[210px] leading-snug">{x.desc}</span>
+            <span className={`text-base text-ink text-center leading-snug ${i === 2 ? 'max-w-[210px]' : 'max-w-[150px]'}`}>{x.desc}</span>
           </div>
         ))}
       </div>
