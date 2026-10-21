@@ -14,6 +14,7 @@
   --font-body: "Prompt", sans-serif;
   --animate-fade: fade 0.35s ease-out both;
   --animate-sheet: sheet 0.4s cubic-bezier(0.32, 0.72, 0, 1) both;
+  --animate-ring: ring 1.2s ease-in-out infinite;
   --animate-drop: drop 0.45s cubic-bezier(0.32, 0.72, 0, 1) both;
 }
 @keyframes fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }

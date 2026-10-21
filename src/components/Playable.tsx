@@ -2,6 +2,7 @@ import { useEffect, useReducer } from 'react';
 import { fresh, MY_NO, reduce } from '../logic/order';
 import type { Translations } from '../translations';
 import { PhoneFrame } from './PhoneFrame';
+import { Screen1Home } from './Screen1Home';
 import { Screen2Store } from './Screen2Store';
 import { Screen3DishSheet } from './Screen3DishSheet';
 import { Screen4OrderStatus } from './Screen4OrderStatus';
@@ -26,7 +27,7 @@ export const Playable = ({ t, width }: { t: Translations; width: number }) => {
     return () => clearTimeout(id);
   }, [status]);
 
-  // Ready: chime, then back to the fresh store 5 s later for the next tester.
+  // Ready: chime, then back to home 5 s later for the next tester.
   useEffect(() => {
     if (status !== 3) return;
     chime();
@@ -40,7 +41,7 @@ export const Playable = ({ t, width }: { t: Translations; width: number }) => {
     return () => clearTimeout(id);
   }, [s.banner]);
 
-  const key = s.order ? 'order' : 'store';
+  const key = s.order ? 'order' : s.page;
 
   return (
     <div className="flex flex-col items-center gap-4">
@@ -48,6 +49,8 @@ export const Playable = ({ t, width }: { t: Translations; width: number }) => {
         <div key={key} className="flex-1 min-h-0 flex flex-col relative animate-fade">
           {s.order ? (
             <Screen4OrderStatus s={s} go={go} />
+          ) : s.page === 'home' ? (
+            <Screen1Home go={go} touched={s.touched} />
           ) : (
             <>
               <Screen2Store s={s} go={go} />

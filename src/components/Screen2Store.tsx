@@ -1,11 +1,11 @@
 import { ChevronLeft, Heart, Star, Clock, MapPin, Plus, ShoppingBag, ArrowRight, Info } from 'lucide-react';
 import { Photo } from './Photo';
 import { STALL_PHOTO, dishPhoto } from './media';
-import { STALLS, type Action, type State } from '../logic/order';
+import { REC, STALLS, pills, shown, type Action, type State } from '../logic/order';
 
-type Dish = { name: string; price: string; desc?: string; img?: string; hot?: boolean };
+type Dish = { i: number; name: string; price: string; desc?: string; img?: string; hot?: boolean };
 
-const menu: Dish[] = [
+const menu: Omit<Dish, 'i'>[] = [
   { name: 'ข้าวขาหมู', price: '45 ฿', desc: 'ขาหมูพะโล้เนื้อนุ่ม ผักกาดดอง น้ำจิ้มแซ่บ', img: 'food/khao-kha-mu.jpg', hot: true },
   { name: 'ข้าวมันไก่ต้ม', price: '40 ฿', desc: 'ไก่ต้มนุ่ม ข้าวมันหอมกระเทียม', img: 'food/khao-man-kai.jpg' },
   { name: 'ข้าวมันไก่กรอบ', price: '40 ฿', desc: 'ไก่ทอดกรอบ น้ำจิ้มไก่หวาน', img: 'food/kai-krob.jpg', hot: true },
@@ -19,18 +19,18 @@ type Props = { s?: State; go?: (a: Action) => void };
 /** No props: the approved static picture. With s + go: the Playable phone's stall page. */
 export const Screen2Store = ({ s, go }: Props) => {
   const st = s ? STALLS[s.stall] : STALLS[0];
-  const dishes: Dish[] = s
-    ? st.dishes.map((d, i) => ({ name: d.th, price: `${d.p} ฿`, img: dishPhoto(d.th), hot: i === 0 }))
+  const dishes: (Omit<Dish, 'i'> & { i?: number })[] = s
+    ? shown(s).map(i => { const d = st.dishes[i]; return { i, name: d.th, price: `${d.p} ฿`, img: dishPhoto(d.th), hot: i < REC }; })
     : menu;
-  const tabs = s ? STALLS.map(x => x.th) : ['ทั้งหมด', 'แนะนำ', 'เมนูข้าว', 'เครื่องเคียง'];
-  const active = s ? s.stall : 0;
+  const tabs = s ? pills(s.stall) : ['ทั้งหมด', 'แนะนำ', 'เมนูข้าว', 'เครื่องเคียง'];
+  const active = s ? s.pill : tabs[0];
 
   return (
     <div className="flex-1 min-h-0 flex flex-col bg-white relative">
       <div className="flex-1 min-h-0 overflow-y-auto no-scrollbar pb-28">
         <div className="relative">
           <Photo src={s ? STALL_PHOTO[s.stall] : 'stalls/kha-mu-hongtae.jpg'} alt={`ป้ายร้าน${st.th}`} className="w-full h-40" />
-          <button className="absolute top-3 left-4 w-10 h-10 rounded-full bg-white flex items-center justify-center" aria-label="กลับ">
+          <button onClick={() => go?.({ t: 'back' })} className="absolute top-3 left-4 w-10 h-10 rounded-full bg-white flex items-center justify-center" aria-label="กลับ">
             <ChevronLeft className="w-6 h-6" />
           </button>
           <button className="absolute top-3 right-4 w-10 h-10 rounded-full bg-white flex items-center justify-center" aria-label="ร้านโปรด">
@@ -62,11 +62,11 @@ export const Screen2Store = ({ s, go }: Props) => {
         </section>
 
         <div className="px-5 py-2 flex gap-2 overflow-x-auto no-scrollbar border-y border-orange-100">
-          {tabs.map((t, i) => (
+          {tabs.map((t) => (
             <button
               key={t}
-              onClick={() => go?.({ t: 'tab', i })}
-              className={`px-4 h-9 rounded-full text-sm font-heading whitespace-nowrap transition-colors ${i === active ? 'bg-ink text-white font-bold' : 'bg-orange-50 font-medium'}`}
+              onClick={() => go?.({ t: 'pill', k: t })}
+              className={`px-4 h-9 rounded-full text-sm font-heading whitespace-nowrap transition-colors ${t === active ? 'bg-ink text-white font-bold' : 'bg-orange-50 font-medium'}`}
             >
               {t}
             </button>
@@ -74,9 +74,9 @@ export const Screen2Store = ({ s, go }: Props) => {
         </div>
 
         <ul key={active} className="px-4 pt-3 space-y-2.5 animate-fade">
-          {dishes.map((m, i) => (
+          {dishes.map((m, j) => (
             <li key={m.name}>
-              <button onClick={() => go?.({ t: 'dish', i })} className="w-full p-2.5 rounded-2xl border border-orange-100 flex items-center gap-3 text-left active:scale-[0.98] transition-transform">
+              <button onClick={() => go?.({ t: 'dish', i: m.i ?? j })} className="w-full p-2.5 rounded-2xl border border-orange-100 flex items-center gap-3 text-left active:scale-[0.98] transition-transform">
                 <Photo src={m.img} alt={m.name} className="w-20 h-20 rounded-xl shrink-0" />
                 <span className="flex-1 min-w-0">
                   <span className="flex items-center gap-2">

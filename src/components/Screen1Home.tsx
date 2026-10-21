@@ -1,5 +1,7 @@
 import { Search, Clock, Star, MapPin, ChevronDown, Bell, Home, Receipt, User, Plus, ShoppingBag, ArrowRight, Store } from 'lucide-react';
 import { Photo } from './Photo';
+import { STALL_PHOTO, dishPhoto } from './media';
+import { PICKS, STALLS, type Action } from '../logic/order';
 
 const categories = [
   { name: 'ก๋วยเตี๋ยว', img: 'food/tom-yum-noodle.jpg' },
@@ -8,21 +10,19 @@ const categories = [
   { name: 'เครื่องดื่ม', img: 'food/cha-yen.jpg' },
 ];
 
-const picks = [
-  { title: 'ข้าวขาหมูพิเศษ', stall: 'ขาหมูฮ่องเต้', price: '50 ฿', img: 'food/khao-kha-mu.jpg', time: '8 นาที' },
-  { title: 'บะหมี่ต้มยำ', stall: 'ก๋วยเตี๋ยวพิมพา', price: '50 ฿', img: 'food/tom-yum-noodle.jpg', time: '10 นาที' },
-  { title: 'ส้มตำไทย', stall: 'แซ่บ นัว ครัว J.T', price: '45 ฿', img: 'food/som-tam.jpg', time: '15 นาที' },
-  { title: 'ชาไทยเย็น', stall: 'ชาพะยอม', price: '30 ฿', img: 'food/cha-yen.jpg', time: '5 นาที' },
-];
+const MENU = ['ข้าวขาหมู ข้าวมันไก่ ไก่ทอด', 'ก๋วยเตี๋ยว ต้มยำ น้ำเงี้ยว', 'ส้มตำ ข้าวไก่ย่าง ลาบ', 'ชาไทย ชาเขียว กาแฟ'];
 
-const stalls = [
-  { name: 'ขาหมูฮ่องเต้', img: 'stalls/kha-mu-hongtae.jpg', rating: '4.7', wait: '8 นาที', menu: 'ข้าวขาหมู ข้าวมันไก่ ไก่ทอด' },
-  { name: 'ก๋วยเตี๋ยวพิมพา', img: 'stalls/pimpa.jpg', rating: '4.8', wait: '10 นาที', menu: 'ก๋วยเตี๋ยว ต้มยำ เย็นตาโฟ' },
-  { name: 'แซ่บ นัว ครัว J.T', img: 'stalls/saep-nua.jpg', rating: '4.9', wait: '15 นาที', menu: 'ส้มตำ ยำ ลาบ' },
-  { name: 'ชาพะยอม', img: 'stalls/chapayom.jpg', rating: '4.6', wait: '5 นาที', menu: 'ชานม ชาเขียว กาแฟ' },
-];
+const picks = PICKS.map(({ stall, dish }) => {
+  const st = STALLS[stall], d = st.dishes[dish];
+  return { title: d.th, stall: st.th, price: `${d.p} ฿`, img: dishPhoto(d.th), time: `${st.wait} นาที` };
+});
 
-export const Screen1Home = () => (
+const stalls = STALLS.map((st, i) => ({ name: st.th, img: STALL_PHOTO[i], rating: String(st.rate), wait: `${st.wait} นาที`, menu: MENU[i] }));
+
+type Props = { go?: (a: Action) => void; touched?: boolean };
+
+/** No props: the static showcase picture. With go: the Playable phone's home; only stall and แนะนำวันนี้ cards respond. */
+export const Screen1Home = ({ go, touched }: Props) => (
   <div className="flex-1 min-h-0 flex flex-col bg-white">
     <div className="flex-1 min-h-0 overflow-y-auto no-scrollbar pb-3">
       <header className="px-5 pt-1 pb-3 flex items-center justify-between">
@@ -67,8 +67,8 @@ export const Screen1Home = () => (
           <button className="text-sm font-semibold text-brand-text">ดูทั้งหมด</button>
         </div>
         <div className="flex gap-3 overflow-x-auto no-scrollbar px-5">
-          {picks.map((p) => (
-            <button key={p.title} className="w-40 shrink-0 text-left rounded-2xl border border-orange-100 overflow-hidden">
+          {picks.map((p, i) => (
+            <button key={p.title} onClick={() => go?.({ t: 'pick', i })} className="w-40 shrink-0 text-left rounded-2xl border border-orange-100 overflow-hidden">
               <div className="relative">
                 <Photo src={p.img} alt={p.title} className="w-full h-20" />
                 <span className="absolute bottom-1.5 left-1.5 bg-white rounded-md px-1.5 text-sm font-semibold flex items-center gap-1">
@@ -94,9 +94,9 @@ export const Screen1Home = () => (
       <section className="px-5">
         <h2 className="text-lg font-heading font-bold mb-1">ร้านตัวอย่างใน D1</h2>
         <ul className="divide-y divide-orange-100">
-          {stalls.map((s) => (
+          {stalls.map((s, i) => (
             <li key={s.name}>
-              <button className="w-full py-3 flex items-center gap-3 text-left">
+              <button onClick={() => go?.({ t: 'open', i })} className={`w-full py-3 flex items-center gap-3 text-left rounded-xl ${go && !touched && i === 0 ? 'animate-ring' : ''}`}>
                 <Photo src={s.img} alt={s.name} className="w-16 h-16 rounded-xl shrink-0" />
                 <span className="flex-1 min-w-0">
                   <span className="flex items-center justify-between gap-2">
@@ -119,7 +119,7 @@ export const Screen1Home = () => (
             </li>
           ))}
           <li>
-            <a href="#join-stall" className="my-3 w-full p-3 flex items-center gap-3 rounded-xl border-2 border-dashed border-brand-text/50 bg-orange-50 text-left">
+            <a href={go ? undefined : '#join-stall'} className="my-3 w-full p-3 flex items-center gap-3 rounded-xl border-2 border-dashed border-brand-text/50 bg-orange-50 text-left">
               <span className="w-16 h-16 rounded-xl shrink-0 bg-white flex items-center justify-center text-brand-text">
                 <Store className="w-7 h-7" />
               </span>
@@ -134,7 +134,7 @@ export const Screen1Home = () => (
       </section>
     </div>
 
-    <div className="shrink-0 px-4 pb-3">
+    {!go && <div className="shrink-0 px-4 pb-3">
       <button className="w-full h-14 rounded-2xl bg-brand-text text-white px-4 flex items-center justify-between font-heading font-bold text-base shadow-lg shadow-orange-800/30">
         <span className="flex items-center gap-2.5">
           <ShoppingBag className="w-5 h-5" />
@@ -145,7 +145,7 @@ export const Screen1Home = () => (
           <ArrowRight className="w-5 h-5" />
         </span>
       </button>
-    </div>
+    </div>}
 
     <nav className="shrink-0 border-t border-orange-100 bg-white px-6 pt-2 pb-7 flex justify-between">
       {[

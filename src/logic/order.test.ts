@@ -1,6 +1,6 @@
 import { test } from 'vitest';
 import assert from 'node:assert/strict';
-import { fresh, reduce, total, STALLS, type Action } from './order';
+import { fresh, reduce, total, shown, pills, STALLS, PICKS, type Action } from './order';
 
 const run = (...acts: Action[]) => acts.reduce(reduce, fresh());
 
@@ -19,8 +19,8 @@ test('add-on toggles and total is live', () => {
   assert.equal(total(s), base);
 });
 
-test('tab change clears dish and add-ons', () => {
-  const s = run({ t: 'dish', i: 0 }, { t: 'addon', i: 0 }, { t: 'close' }, { t: 'tab', i: 2 });
+test('stall change clears dish and add-ons', () => {
+  const s = run({ t: 'dish', i: 0 }, { t: 'addon', i: 0 }, { t: 'close' }, { t: 'back' }, { t: 'open', i: 2 });
   assert.equal(s.stall, 2);
   assert.equal(s.dish, null);
   assert.deepEqual(s.addons, []);
@@ -77,4 +77,62 @@ test('ขาหมูฮ่องเต้ is the first stall', () => {
 
 test('reset gives fresh state', () => {
   assert.deepEqual(run({ t: 'dish', i: 0 }, { t: 'send' }, { t: 'reset' }), fresh());
+});
+
+test('opens on home, untouched', () => {
+  assert.equal(fresh().page, 'home');
+  assert.equal(fresh().touched, false);
+});
+
+test('stall tap opens that stall on ทั้งหมด', () => {
+  const s = run({ t: 'open', i: 2 });
+  assert.equal(s.page, 'stall');
+  assert.equal(s.stall, 2);
+  assert.equal(s.pill, 'ทั้งหมด');
+  assert.equal(s.touched, true);
+  assert.equal(s.sheet, false);
+});
+
+test('pick tap opens stall with that dish sheet', () => {
+  const s = run({ t: 'pick', i: 1 });
+  assert.equal(s.page, 'stall');
+  assert.equal(s.stall, PICKS[1].stall);
+  assert.equal(s.dish, PICKS[1].dish);
+  assert.equal(s.sheet, true);
+});
+
+test('back returns home, keeps touched', () => {
+  const s = run({ t: 'open', i: 1 }, { t: 'back' });
+  assert.equal(s.page, 'home');
+  assert.equal(s.touched, true);
+});
+
+test('reset after ready returns home', () => {
+  const s = run({ t: 'open', i: 3 }, { t: 'dish', i: 0 }, { t: 'send' }, { t: 'ready', no: 27 }, { t: 'reset' });
+  assert.equal(s.page, 'home');
+  assert.equal(s.order, null);
+});
+
+test('pills: ทั้งหมด, แนะนำ, then types; one-type stall has none', () => {
+  assert.deepEqual(pills(0), ['ทั้งหมด', 'แนะนำ', 'ขาหมู', 'ไก่', 'ปลา']);
+  assert.deepEqual(pills(1), ['ทั้งหมด', 'แนะนำ']);
+  assert.deepEqual(pills(2), ['ทั้งหมด', 'แนะนำ', 'ส้มตำ', 'ข้าว', 'ต้ม/ลาบ']);
+  assert.deepEqual(pills(3), ['ทั้งหมด', 'แนะนำ', 'ชา', 'กาแฟ/นม']);
+});
+
+test('pill filters by type and keeps menu index', () => {
+  let s = run({ t: 'open', i: 0 }, { t: 'pill', k: 'ปลา' });
+  assert.deepEqual(shown(s), [4, 5]);
+  s = reduce(s, { t: 'pill', k: 'แนะนำ' });
+  assert.deepEqual(shown(s), [0, 1]);
+  s = reduce(s, { t: 'pill', k: 'ทั้งหมด' });
+  assert.equal(shown(s).length, STALLS[0].dishes.length);
+});
+
+test('home picks point at real dishes', () => {
+  for (const p of PICKS) assert.ok(STALLS[p.stall].dishes[p.dish]);
+});
+
+test('reset brings the ring back for the next tester', () => {
+  assert.equal(run({ t: 'open', i: 0 }, { t: 'reset' }).touched, false);
 });

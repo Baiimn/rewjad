@@ -145,7 +145,7 @@ export const content: Record<Language, Translations> = {
     demoSection: {
       title: 'Try the ordering experience',
       subtitle: 'Experience how smooth pre-ordering at D1 will be. Tap through the live screen below.',
-      instruction: 'Tap the dish, select your pickup slot, and send your order.',
+      instruction: 'Pick a stall, tap a dish, choose your pickup slot, and send your order.',
     },
     waitlist: {
       heading: 'Be first when REWJAD opens at D1',
@@ -234,7 +234,7 @@ export const content: Record<Language, Translations> = {
     demoSection: {
       title: 'ทดสอบระบบสั่งอาหารจำลอง',
       subtitle: 'ลองสัมผัสความสะดวกรวดเร็วของการสั่งอาหารล่วงหน้าที่โรงอาหาร D1 ด้วยตัวคุณเอง',
-      instruction: 'กดเลือกเมนู กำหนดเวลารับ แล้วกดส่งออเดอร์เพื่อดูการแจ้งเตือนจริง',
+      instruction: 'เลือกร้าน กดเลือกเมนู กำหนดเวลารับ แล้วกดส่งออเดอร์เพื่อดูการแจ้งเตือนจริง',
     },
     waitlist: {
       heading: 'เป็นคนแรกเมื่อ REWJAD เปิดที่ D1',
