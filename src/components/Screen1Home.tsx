@@ -16,10 +16,10 @@ const picks = [
 ];
 
 const stalls = [
-  { name: 'ขาหมูฮ่องเต้', img: '/stalls/kha-mu-hongtae.jpg', rating: '4.7', wait: '8 นาที', menu: 'ข้าวขาหมู ข้าวมันไก่ ไก่ทอด' },
-  { name: 'ก๋วยเตี๋ยวพิมพา', img: '/stalls/pimpa.jpg', rating: '4.8', wait: '10 นาที', menu: 'ก๋วยเตี๋ยว ต้มยำ เย็นตาโฟ' },
-  { name: 'แซ่บ นัว ครัว J.T', img: '/stalls/saep-nua.jpg', rating: '4.9', wait: '15 นาที', menu: 'ส้มตำ ยำ ลาบ' },
-  { name: 'ชาพะยอม', img: '/stalls/chapayom.jpg', rating: '4.6', wait: '5 นาที', menu: 'ชานม ชาเขียว กาแฟ' },
+  { name: 'ขาหมูฮ่องเต้', img: 'stalls/kha-mu-hongtae.jpg', rating: '4.7', wait: '8 นาที', menu: 'ข้าวขาหมู ข้าวมันไก่ ไก่ทอด' },
+  { name: 'ก๋วยเตี๋ยวพิมพา', img: 'stalls/pimpa.jpg', rating: '4.8', wait: '10 นาที', menu: 'ก๋วยเตี๋ยว ต้มยำ เย็นตาโฟ' },
+  { name: 'แซ่บ นัว ครัว J.T', img: 'stalls/saep-nua.jpg', rating: '4.9', wait: '15 นาที', menu: 'ส้มตำ ยำ ลาบ' },
+  { name: 'ชาพะยอม', img: 'stalls/chapayom.jpg', rating: '4.6', wait: '5 นาที', menu: 'ชานม ชาเขียว กาแฟ' },
 ];
 
 export const Screen1Home = () => (

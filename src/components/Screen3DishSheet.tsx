@@ -27,7 +27,7 @@ export const Screen3DishSheet = ({ s, go }: Props) => {
     <div className="flex-1 min-h-0 flex flex-col relative">
       {!s && (
         <>
-          <Photo src="/stalls/kha-mu-hongtae.jpg" alt="" className="absolute inset-0 w-full h-full" />
+          <Photo src="stalls/kha-mu-hongtae.jpg" alt="" className="absolute inset-0 w-full h-full" />
           <div className="absolute inset-0 bg-black/45" />
           <p className="absolute top-3 left-5 text-white font-heading font-bold text-lg">ขาหมูฮ่องเต้</p>
         </>

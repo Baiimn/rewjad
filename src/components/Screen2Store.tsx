@@ -29,7 +29,7 @@ export const Screen2Store = ({ s, go }: Props) => {
     <div className="flex-1 min-h-0 flex flex-col bg-white relative">
       <div className="flex-1 min-h-0 overflow-y-auto no-scrollbar pb-28">
         <div className="relative">
-          <Photo src={s ? STALL_PHOTO[s.stall] : '/stalls/kha-mu-hongtae.jpg'} alt={`ป้ายร้าน${st.th}`} className="w-full h-40" />
+          <Photo src={s ? STALL_PHOTO[s.stall] : 'stalls/kha-mu-hongtae.jpg'} alt={`ป้ายร้าน${st.th}`} className="w-full h-40" />
           <button className="absolute top-3 left-4 w-10 h-10 rounded-full bg-white flex items-center justify-center" aria-label="กลับ">
             <ChevronLeft className="w-6 h-6" />
           </button>
