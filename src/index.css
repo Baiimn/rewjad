@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+@theme {
+  --font-heading: "Prompt", sans-serif;
+  --font-thai: "Noto Sans Thai", sans-serif;
+  --color-ink: #1A1A1A;
+  --color-brand: #FF6B00;
+  --color-brand-text: #C2410C;
+  --color-go: #15803D;
+}
+
+@theme {
+  --font-display: "Kanit", sans-serif;
+  --font-body: "Prompt", sans-serif;
+  --animate-fade: fade 0.35s ease-out both;
+  --animate-sheet: sheet 0.4s cubic-bezier(0.32, 0.72, 0, 1) both;
+  --animate-drop: drop 0.45s cubic-bezier(0.32, 0.72, 0, 1) both;
+}
+@keyframes fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes sheet { from { transform: translateY(100%); } to { transform: none; } }
+@keyframes drop { from { transform: translateY(-120%); } to { transform: none; } }
+
+/* Scroll reveal: Reveal.tsx adds .in when the block enters the screen. */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease-out, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
+.reveal.in { opacity: 1; transform: none; }
+
+/* Native feel on phones. */
+html { -webkit-tap-highlight-color: transparent; scroll-behavior: smooth; }
+button { touch-action: manipulation; -webkit-user-select: none; user-select: none; }
+@media (hover: none) { .hover-only { display: none; } }
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+}
+
+body { margin: 0; }
+
+/* Grey shape that shimmers ~1 s then goes still (PLAN: skeleton). */
+.skeleton {
+  background: linear-gradient(90deg, #e7e5e4 0%, #f5f5f4 50%, #e7e5e4 100%) #e7e5e4;
+  background-size: 200% 100%;
+  animation: shimmer 0.5s linear 2;
+}
+@keyframes shimmer { from { background-position: 100% 0; } to { background-position: -100% 0; } }
