@@ -71,7 +71,8 @@ export interface Translations {
     done: string;
   };
   stallForm: { heading: string; description: string; placeholder: string; button: string; success: string };
-  demoLabels: { student: string; stall: string; restart: string };
+  choice: { label: string; student: string; stall: string };
+  stallDemo: { hint: string };
   footer: {
     tagline: string;
     location: string;
@@ -161,7 +162,8 @@ export const content: Record<Language, Translations> = {
       done: 'You are on the list',
     },
     stallForm: { heading: 'Run a D1 stall?', description: 'Leave one contact and we will talk about a one-day trial.', placeholder: 'Email, LINE ID or phone', button: 'Tell me about the trial', success: 'Thanks. We will contact you about the trial.' },
-    demoLabels: { student: 'Student', stall: 'Stall', restart: 'Restart' },
+    choice: { label: 'I am a', student: 'Student or staff', stall: 'Stall owner' },
+    stallDemo: { hint: 'Try the stall phone: orders arrive by themselves.' },
     footer: {
       tagline: 'Pre-order pickup app for D1 canteen',
       location: 'Mae Fah Luang University, Chiang Rai',
@@ -249,7 +251,8 @@ export const content: Record<Language, Translations> = {
       done: 'ลงชื่อสำเร็จ',
     },
     stallForm: { heading: 'เปิดร้านใน D1 อยู่ใช่ไหม', description: 'ฝากช่องทางติดต่อไว้ แล้วเราจะคุยเรื่องทดลองใช้ 1 วัน', placeholder: 'อีเมล, LINE ID หรือเบอร์โทร', button: 'สนใจทดลองใช้', success: 'ขอบคุณครับ เราจะติดต่อไปเรื่องทดลองใช้' },
-    demoLabels: { student: 'นักศึกษา', stall: 'ร้านค้า', restart: 'เริ่มใหม่' },
+    choice: { label: 'ฉันเป็น', student: 'นักศึกษา/บุคลากร', stall: 'เจ้าของร้าน' },
+    stallDemo: { hint: 'ลองเป็นร้านดู ออเดอร์จะเข้ามาเอง' },
     footer: {
       tagline: 'แอปสั่งอาหารล่วงหน้ารับที่เคาน์เตอร์ โรงอาหาร D1',
       location: 'มหาวิทยาลัยแม่ฟ้าหลวง เชียงราย',

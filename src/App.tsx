@@ -5,10 +5,11 @@ import { Playable } from './components/Playable';
 import { Reveal } from './components/Reveal';
 import { Screen2Store } from './components/Screen2Store';
 import { Screen4OrderStatus } from './components/Screen4OrderStatus';
-import { Screen5SellerView } from './components/Screen5SellerView';
 import { ScrollShowcase } from './components/ScrollShowcase';
+import { StallPhone } from './components/StallPhone';
 import { WaitlistForm } from './components/WaitlistForm';
 import { content, type Language } from './translations';
+import type { Who } from './logic/signup';
 
 /** Phone width that fits the screen: the hero pair and the Playable phone shrink on small phones. */
 function useNarrow() {
@@ -26,6 +27,20 @@ export default function App() {
   const t = content[lang];
   const narrow = useNarrow();
   useEffect(() => { document.documentElement.lang = lang === 'TH' ? 'th' : 'en'; }, [lang]);
+
+  // Any link to #join-stall opens the one sign-up form with stall owner picked.
+  const [who, setWho] = useState<Who>('student');
+  useEffect(() => {
+    const on = () => {
+      if (location.hash !== '#join-stall') return;
+      setWho('stall');
+      document.getElementById('join')?.scrollIntoView({ behavior: 'smooth' });
+      history.replaceState(null, '', location.pathname + location.search + '#join');
+    };
+    on();
+    window.addEventListener('hashchange', on);
+    return () => window.removeEventListener('hashchange', on);
+  }, []);
 
   const steps = [
     { no: '01', icon: <UtensilsCrossed className="w-6 h-6" />, title: t.howItWorks.step1Title, desc: t.howItWorks.step1Desc },
@@ -112,7 +127,10 @@ export default function App() {
         <section id="for-stalls" className="py-20 md:py-28 px-5 sm:px-6 bg-white scroll-mt-20">
           <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-14 lg:gap-16">
             <Reveal className="flex-1 flex justify-center order-2 lg:order-1">
-              <PhoneFrame width={narrow ? 300 : 340}><Screen5SellerView /></PhoneFrame>
+              <div className="flex flex-col items-center gap-4">
+                <StallPhone width={narrow ? Math.min(320, window.innerWidth - 40) : 340} />
+                <p className="text-base text-center max-w-[320px]">{t.stallDemo.hint}</p>
+              </div>
             </Reveal>
             <div className="flex-1 flex flex-col gap-10 max-w-2xl order-1 lg:order-2">
               <Reveal className="flex flex-col gap-4">
@@ -131,7 +149,14 @@ export default function App() {
                   </Reveal>
                 ))}
               </div>
-              <Reveal><WaitlistForm t={t} who="stall" /></Reveal>
+              <Reveal className="flex flex-col gap-4">
+                <h3 className="text-2xl sm:text-3xl font-bold font-display">{t.stallForm.heading}</h3>
+                <p className="text-lg leading-relaxed">{t.stallForm.description}</p>
+                <a href="#join-stall" className="w-full sm:w-auto sm:self-start px-8 h-14 bg-brand-text active:bg-[#9A3412] text-white text-lg font-bold rounded-xl flex items-center justify-center gap-3 active:scale-[0.98] transition-transform">
+                  {t.stallForm.button}
+                  <ArrowRight className="w-5 h-5" />
+                </a>
+              </Reveal>
             </div>
           </div>
         </section>
@@ -147,8 +172,8 @@ export default function App() {
                 <Playable t={t} width={narrow ? Math.min(340, window.innerWidth - 40) : 360} />
                 <p className="text-base text-center max-w-[340px]">{t.demoSection.instruction}</p>
               </div>
-              <div className="lg:col-span-7 lg:pt-16">
-                <WaitlistForm t={t} who="student" />
+              <div id="join" className="lg:col-span-7 lg:pt-16 scroll-mt-24">
+                <WaitlistForm t={t} who={who} setWho={setWho} />
               </div>
             </div>
           </div>

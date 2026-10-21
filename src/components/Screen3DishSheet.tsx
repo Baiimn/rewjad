@@ -40,7 +40,7 @@ export const Screen3DishSheet = ({ s, go }: Props) => {
 
         <div className="flex-1 min-h-0 overflow-y-auto no-scrollbar px-5 pt-3 pb-32 space-y-4">
           <div className="relative">
-            <Photo src={dish ? dishPhoto(dish.th) ?? undefined : '/food/khao-kha-mu.jpg'} alt={dish?.th ?? 'ข้าวขาหมู'} className="w-full h-24 rounded-2xl" />
+            <Photo src={dish ? dishPhoto(dish.th) ?? undefined : 'food/khao-kha-mu.jpg'} alt={dish?.th ?? 'ข้าวขาหมู'} className="w-full h-24 rounded-2xl" />
             <button onClick={() => go?.({ t: 'close' })} className="absolute top-2 right-2 w-9 h-9 rounded-full bg-white flex items-center justify-center" aria-label="ปิด">
               <X className="w-5 h-5" />
             </button>

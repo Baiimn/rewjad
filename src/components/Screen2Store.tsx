@@ -6,19 +6,19 @@ import { STALLS, type Action, type State } from '../logic/order';
 type Dish = { name: string; price: string; desc?: string; img?: string; hot?: boolean };
 
 const menu: Dish[] = [
-  { name: 'ข้าวขาหมู', price: '45 ฿', desc: 'ขาหมูพะโล้เนื้อนุ่ม ผักกาดดอง น้ำจิ้มแซ่บ', img: '/food/khao-kha-mu.jpg', hot: true },
-  { name: 'ข้าวมันไก่ต้ม', price: '40 ฿', desc: 'ไก่ต้มนุ่ม ข้าวมันหอมกระเทียม', img: '/food/khao-man-kai.jpg' },
-  { name: 'ข้าวมันไก่กรอบ', price: '40 ฿', desc: 'ไก่ทอดกรอบ น้ำจิ้มไก่หวาน', img: '/food/kai-krob.jpg', hot: true },
-  { name: 'ข้าวไก่ทอดน้ำปลา', price: '45 ฿', desc: 'ไก่ทอดคลุกน้ำปลา หอมเจียว', img: '/food/kai-thot.jpg' },
-  { name: 'ข้าวปลากรอบ', price: '40 ฿', desc: 'ปลาทอดกรอบ น้ำยำรสจัด', img: '/food/pla-krob.jpg' },
-  { name: 'ข้าวปลาแกะ', price: '50 ฿', desc: 'ปลาแกะก้าง ราดพริกน้ำปลา', img: '/food/pla-kae.jpg' },
+  { name: 'ข้าวขาหมู', price: '45 ฿', desc: 'ขาหมูพะโล้เนื้อนุ่ม ผักกาดดอง น้ำจิ้มแซ่บ', img: 'food/khao-kha-mu.jpg', hot: true },
+  { name: 'ข้าวมันไก่ต้ม', price: '40 ฿', desc: 'ไก่ต้มนุ่ม ข้าวมันหอมกระเทียม', img: 'food/khao-man-kai.jpg' },
+  { name: 'ข้าวมันไก่กรอบ', price: '40 ฿', desc: 'ไก่ทอดกรอบ น้ำจิ้มไก่หวาน', img: 'food/kai-krob.jpg', hot: true },
+  { name: 'ข้าวไก่ทอดน้ำปลา', price: '45 ฿', desc: 'ไก่ทอดคลุกน้ำปลา หอมเจียว', img: 'food/kai-thot.jpg' },
+  { name: 'ข้าวปลากรอบ', price: '40 ฿', desc: 'ปลาทอดกรอบ น้ำยำรสจัด', img: 'food/pla-krob.jpg' },
+  { name: 'ข้าวปลาแกะ', price: '50 ฿', desc: 'ปลาแกะก้าง ราดพริกน้ำปลา', img: 'food/pla-kae.jpg' },
 ];
 
 type Props = { s?: State; go?: (a: Action) => void };
 
 /** No props: the approved static picture. With s + go: the Playable phone's stall page. */
 export const Screen2Store = ({ s, go }: Props) => {
-  const st = s ? STALLS[s.stall] : STALLS[1];
+  const st = s ? STALLS[s.stall] : STALLS[0];
   const dishes: Dish[] = s
     ? st.dishes.map((d, i) => ({ name: d.th, price: `${d.p} ฿`, img: dishPhoto(d.th), hot: i === 0 }))
     : menu;

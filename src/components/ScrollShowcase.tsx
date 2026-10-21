@@ -34,6 +34,18 @@ export const ScrollShowcase = ({ t }: { t: Translations }) => {
   const ref = useRef<HTMLElement>(null);
   const p = useScrollProgress(ref);
   const n = t.showcase3D.screenNames;
+  // Desktop spread: 0 = stacked in the centre, 1 = fanned out. Tied to scroll, so it reverses on scroll up.
+  const e = Math.min(Math.max((p + 0.85) / 0.6, 0), 1);
+  const spread = e * e * (3 - 2 * e);
+  const row = useRef<HTMLDivElement>(null);
+  const [rowIn, setRowIn] = useState(false);
+  useEffect(() => {
+    const el = row.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([x]) => { if (x.isIntersecting) { setRowIn(true); io.disconnect(); } }, { threshold: 0.2 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
   const screens: { el: ReactNode; desc: string; tilt: string }[] = [
     { el: <Screen1Home />, desc: n.home, tilt: `rotateY(${22 + p * 14}deg) rotateX(${-4 + p * 8}deg) rotateZ(-3deg) translateZ(-60px)` },
     { el: <Screen2Store />, desc: n.store, tilt: `rotateY(${11 + p * 9}deg) rotateX(${-2 + p * 5}deg) rotateZ(-1.5deg) translateZ(-20px)` },
@@ -48,12 +60,15 @@ export const ScrollShowcase = ({ t }: { t: Translations }) => {
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-display text-ink leading-snug">{t.showcase3D.title}</h2>      </Reveal>
 
       {/* Phone: a swipeable row, each phone tilting with the scroll. */}
-      <div className="md:hidden mt-10 flex gap-6 overflow-x-auto snap-x snap-mandatory no-scrollbar px-5 pb-6 [perspective:900px]">
+      <div ref={row} className="md:hidden mt-10 flex gap-6 overflow-x-auto snap-x snap-mandatory no-scrollbar px-5 pb-6 [perspective:900px]">
         {screens.map((x, i) => (
-          <div key={i} className="snap-center shrink-0 flex flex-col items-center gap-3 will-change-transform"
-            style={{ transform: `rotateY(${p * 14}deg) rotateX(${p * 6}deg)` }}>
-            <PhoneFrame width={250}>{x.el}</PhoneFrame>
-            <span className="text-base text-ink text-center max-w-[240px]">{x.desc}</span>
+          <div key={i} className="snap-center shrink-0 transition-[transform,opacity] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none"
+            style={{ transform: rowIn ? 'none' : 'translateX(120px)', opacity: rowIn ? 1 : 0, transitionDelay: `${i * 100}ms` }}>
+            <div className="flex flex-col items-center gap-3 will-change-transform"
+              style={{ transform: `rotateY(${p * 14}deg) rotateX(${p * 6}deg)` }}>
+              <PhoneFrame width={250}>{x.el}</PhoneFrame>
+              <span className="text-base text-ink text-center max-w-[240px]">{x.desc}</span>
+            </div>
           </div>
         ))}
       </div>
@@ -62,7 +77,7 @@ export const ScrollShowcase = ({ t }: { t: Translations }) => {
       <div className="hidden md:flex mt-14 justify-center items-start -space-x-14 lg:-space-x-10 xl:-space-x-6 pointer-events-none [perspective:1400px]">
         {screens.map((x, i) => (
           <div key={i} className="flex flex-col items-center gap-5 will-change-transform transition-transform duration-200 ease-out"
-            style={{ transform: x.tilt, zIndex: 30 - Math.abs(2 - i) * 10 }}>
+            style={{ transform: `translateX(${(2 - i) * 165 * (1 - spread)}px) ${x.tilt}`, zIndex: 30 - Math.abs(2 - i) * 10 }}>
             <PhoneFrame width={i === 2 ? 250 : 220}>{x.el}</PhoneFrame>
             <span className={`text-base text-ink text-center leading-snug ${i === 2 ? 'max-w-[210px]' : 'max-w-[150px]'}`}>{x.desc}</span>
           </div>

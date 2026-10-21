@@ -43,3 +43,8 @@ body { margin: 0; }
   animation: shimmer 0.5s linear 2;
 }
 @keyframes shimmer { from { background-position: 100% 0; } to { background-position: -100% 0; } }
+
+/* Stall phone: a new order drops in, then pulses until the stall acts. */
+.order-new { animation: drop 0.45s cubic-bezier(0.32, 0.72, 0, 1) both, ring 1.2s ease-in-out 0.45s infinite; }
+@keyframes ring { 0%, 100% { box-shadow: 0 0 0 0 rgb(255 107 0 / 0.45); } 50% { box-shadow: 0 0 0 8px rgb(255 107 0 / 0); } }
+@media (prefers-reduced-motion: reduce) { .order-new { animation: none; } }

@@ -1,18 +1,18 @@
-import { Search, Clock, Star, MapPin, ChevronDown, Bell, Home, Receipt, User, Plus, ShoppingBag, ArrowRight } from 'lucide-react';
+import { Search, Clock, Star, MapPin, ChevronDown, Bell, Home, Receipt, User, Plus, ShoppingBag, ArrowRight, Store } from 'lucide-react';
 import { Photo } from './Photo';
 
 const categories = [
-  { name: 'ก๋วยเตี๋ยว', img: '/food/tom-yum-noodle.jpg' },
-  { name: 'ข้าว', img: '/food/khao-kha-mu.jpg' },
-  { name: 'ส้มตำ', img: '/food/som-tam.jpg' },
-  { name: 'เครื่องดื่ม', img: '/food/cha-yen.jpg' },
+  { name: 'ก๋วยเตี๋ยว', img: 'food/tom-yum-noodle.jpg' },
+  { name: 'ข้าว', img: 'food/khao-kha-mu.jpg' },
+  { name: 'ส้มตำ', img: 'food/som-tam.jpg' },
+  { name: 'เครื่องดื่ม', img: 'food/cha-yen.jpg' },
 ];
 
 const picks = [
-  { title: 'ข้าวขาหมูพิเศษ', stall: 'ขาหมูฮ่องเต้', price: '50 ฿', img: '/food/khao-kha-mu.jpg', time: '8 นาที' },
-  { title: 'บะหมี่ต้มยำ', stall: 'ก๋วยเตี๋ยวพิมพา', price: '50 ฿', img: '/food/tom-yum-noodle.jpg', time: '10 นาที' },
-  { title: 'ส้มตำไทย', stall: 'แซ่บ นัว ครัว J.T', price: '45 ฿', img: '/food/som-tam.jpg', time: '15 นาที' },
-  { title: 'ชาไทยเย็น', stall: 'ชาพะยอม', price: '30 ฿', img: '/food/cha-yen.jpg', time: '5 นาที' },
+  { title: 'ข้าวขาหมูพิเศษ', stall: 'ขาหมูฮ่องเต้', price: '50 ฿', img: 'food/khao-kha-mu.jpg', time: '8 นาที' },
+  { title: 'บะหมี่ต้มยำ', stall: 'ก๋วยเตี๋ยวพิมพา', price: '50 ฿', img: 'food/tom-yum-noodle.jpg', time: '10 นาที' },
+  { title: 'ส้มตำไทย', stall: 'แซ่บ นัว ครัว J.T', price: '45 ฿', img: 'food/som-tam.jpg', time: '15 นาที' },
+  { title: 'ชาไทยเย็น', stall: 'ชาพะยอม', price: '30 ฿', img: 'food/cha-yen.jpg', time: '5 นาที' },
 ];
 
 const stalls = [
@@ -92,7 +92,7 @@ export const Screen1Home = () => (
       </section>
 
       <section className="px-5">
-        <h2 className="text-lg font-heading font-bold mb-1">ร้านในโรงอาหาร D1</h2>
+        <h2 className="text-lg font-heading font-bold mb-1">ร้านตัวอย่างใน D1</h2>
         <ul className="divide-y divide-orange-100">
           {stalls.map((s) => (
             <li key={s.name}>
@@ -118,6 +118,18 @@ export const Screen1Home = () => (
               </button>
             </li>
           ))}
+          <li>
+            <a href="#join-stall" className="my-3 w-full p-3 flex items-center gap-3 rounded-xl border-2 border-dashed border-brand-text/50 bg-orange-50 text-left">
+              <span className="w-16 h-16 rounded-xl shrink-0 bg-white flex items-center justify-center text-brand-text">
+                <Store className="w-7 h-7" />
+              </span>
+              <span className="flex-1 min-w-0">
+                <span className="block text-base font-heading font-bold text-brand-text">ร้านของคุณก็อยู่ตรงนี้ได้</span>
+                <span className="block text-sm">ลงชื่อร้านกับ REWJAD</span>
+              </span>
+              <ArrowRight className="w-5 h-5 text-brand-text shrink-0" />
+            </a>
+          </li>
         </ul>
       </section>
     </div>

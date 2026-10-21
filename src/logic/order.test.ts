@@ -67,6 +67,14 @@ test('cook after ready does not go backwards', () => {
   assert.equal(s.order!.status, 3);
 });
 
+test('ready then reset gives fresh state', () => {
+  assert.deepEqual(run({ t: 'dish', i: 0 }, { t: 'send' }, { t: 'cook' }, { t: 'ready', no: 27 }, { t: 'reset' }), fresh());
+});
+
+test('ขาหมูฮ่องเต้ is the first stall', () => {
+  assert.equal(STALLS[0].th, 'ขาหมูฮ่องเต้');
+});
+
 test('reset gives fresh state', () => {
   assert.deepEqual(run({ t: 'dish', i: 0 }, { t: 'send' }, { t: 'reset' }), fresh());
 });

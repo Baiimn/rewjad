@@ -7,14 +7,14 @@ export type Stall = { th: string; en: string; no: number; f: number; rate: numbe
 const d = (th: string, en: string, p: number): Item => ({ th, en, p });
 
 export const STALLS: Stall[] = [
-  { th: 'ก๋วยเตี๋ยวพิมพา', en: 'Pimpa Noodles', no: 7, f: 0, rate: 4.7, wait: 8,
-    dishes: [d('ก๋วยเตี๋ยวไก่ตุ๋น', 'Braised chicken noodles', 35), d('น้ำเงี้ยว', 'Nam ngiao noodles', 35),
-      d('ต้มยำ', 'Tom yum noodles', 35), d('น้ำใส', 'Clear soup noodles', 35)],
-    addons: [d('พิเศษ', 'Special size', 5)] },
   { th: 'ขาหมูฮ่องเต้', en: 'Hongtae Pork Leg', no: 5, f: 1, rate: 4.6, wait: 6,
     dishes: [d('ข้าวขาหมู', 'Stewed pork leg rice', 45), d('ข้าวมันไก่ต้ม', 'Boiled chicken rice', 40),
       d('ข้าวมันไก่กรอบ', 'Crispy chicken rice', 40), d('ข้าวไก่ทอดน้ำปลา', 'Fish sauce fried chicken rice', 45),
       d('ข้าวปลากรอบ', 'Crispy fish rice', 40), d('ข้าวปลาแกะ', 'Boned fish rice', 50)],
+    addons: [d('พิเศษ', 'Special size', 5)] },
+  { th: 'ก๋วยเตี๋ยวพิมพา', en: 'Pimpa Noodles', no: 7, f: 0, rate: 4.7, wait: 8,
+    dishes: [d('ก๋วยเตี๋ยวไก่ตุ๋น', 'Braised chicken noodles', 35), d('น้ำเงี้ยว', 'Nam ngiao noodles', 35),
+      d('ต้มยำ', 'Tom yum noodles', 35), d('น้ำใส', 'Clear soup noodles', 35)],
     addons: [d('พิเศษ', 'Special size', 5)] },
   { th: 'แซ่บ นัว ครัว J.T', en: 'Saep Nua J.T Kitchen', no: 4, f: 2, rate: 4.5, wait: 10,
     dishes: [d('ส้มตำ', 'Papaya salad', 40), d('ตำปูม้ากุ้งสด', 'Crab and shrimp papaya salad', 80),

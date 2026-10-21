@@ -1,5 +1,5 @@
 // Photos for the Playable phone. Credits: public/food/CREDITS.txt. A dish with no photo shows a skeleton.
-export const STALL_PHOTO = ['stalls/pimpa.jpg', 'stalls/kha-mu-hongtae.jpg', 'stalls/saep-nua.jpg', 'stalls/chapayom.jpg'];
+export const STALL_PHOTO = ['stalls/kha-mu-hongtae.jpg', 'stalls/pimpa.jpg', 'stalls/saep-nua.jpg', 'stalls/chapayom.jpg'];
 
 const DISH_PHOTO: Record<string, string> = {
   'ต้มยำ': 'food/tom-yum-noodle.jpg',

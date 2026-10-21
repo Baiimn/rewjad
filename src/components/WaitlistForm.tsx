@@ -3,10 +3,10 @@ import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import { FORM_URL, signupFields, type Who } from '../logic/signup';
 import type { Translations } from '../translations';
 
-type Props = { t: Translations; who: Who };
+type Props = { t: Translations; who: Who; setWho: (w: Who) => void };
 
-/** One contact field. Posts to the Google Form in the background; the member tag comes from ?m= in the address. */
-export const WaitlistForm = ({ t, who }: Props) => {
+/** The one sign-up form: pick student/staff or stall owner, then one contact field. Posts to the Google Form in the background; the member tag comes from ?m= in the address. */
+export const WaitlistForm = ({ t, who, setWho }: Props) => {
   const [contact, setContact] = useState('');
   const [state, setState] = useState<'idle' | 'sending' | 'done' | 'failed'>('idle');
   const [empty, setEmpty] = useState(false);
@@ -14,7 +14,7 @@ export const WaitlistForm = ({ t, who }: Props) => {
   const copy = who === 'stall'
     ? { heading: t.stallForm.heading, description: t.stallForm.description, placeholder: t.stallForm.placeholder, button: t.stallForm.button, success: t.stallForm.success }
     : { heading: w.heading, description: w.description, placeholder: w.inputPlaceholder, button: w.submitButton, success: w.successMessage };
-  const id = `contact-${who}`;
+  const id = 'contact';
 
   const submit = async (e: FormEvent) => {
     e.preventDefault();
@@ -53,6 +53,17 @@ export const WaitlistForm = ({ t, who }: Props) => {
         </div>
       ) : (
         <form onSubmit={submit} className="flex flex-col gap-4" noValidate>
+          <fieldset className="flex flex-col gap-3">
+            <legend className="text-base font-bold text-ink mb-3">{t.choice.label}</legend>
+            <div className="flex flex-wrap gap-3">
+              {(['student', 'stall'] as const).map(w2 => (
+                <label key={w2} className={`h-12 px-5 rounded-xl border-2 flex items-center gap-2.5 text-base font-bold cursor-pointer transition-colors ${who === w2 ? 'border-brand-text bg-orange-50 text-brand-text' : 'border-ink/30 bg-white text-ink'}`}>
+                  <input type="radio" name="who" value={w2} checked={who === w2} onChange={() => setWho(w2)} className="accent-brand-text w-4 h-4" />
+                  {t.choice[w2]}
+                </label>
+              ))}
+            </div>
+          </fieldset>
           <label htmlFor={id} className="text-base font-bold text-ink">{w.label}</label>
           <input
             id={id}
