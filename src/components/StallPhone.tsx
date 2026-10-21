@@ -12,11 +12,11 @@ export const StallPhone = ({ width }: { width: number }) => {
   const ref = useRef<HTMLDivElement>(null);
   const count = s.orders.length;
 
-  // Start once the phone scrolls into view.
+  // Runs only while the phone is on screen: orders and chimes pause when scrolled away.
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setSeen(true); io.disconnect(); } }, { threshold: 0.3 });
+    const io = new IntersectionObserver(([e]) => setSeen(e.isIntersecting), { threshold: 0.3 });
     io.observe(el);
     return () => io.disconnect();
   }, []);
@@ -28,7 +28,8 @@ export const StallPhone = ({ width }: { width: number }) => {
     return () => clearTimeout(id);
   }, [seen, count]);
 
-  useEffect(() => { if (count > 0) chime(); }, [count]);
+  // Chime only on a new order seen on screen, never on scroll.
+  useEffect(() => { if (count > 0 && seen) chime(); }, [count]);
 
   const waiting = s.orders.filter(o => o.status === 'new' || o.status === 'accepted').length;
   const btn = 'h-12 rounded-xl text-base font-heading font-bold flex items-center justify-center gap-2 active:scale-[0.98] transition-transform';
